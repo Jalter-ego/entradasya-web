@@ -1,0 +1,63 @@
+name: Web CI
+
+on:
+  push:
+    branches: [develop]
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-build:
+    name: Pruebas, compilación y artifacts
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CI: 'true'
+
+    steps:
+      - name: Obtener código
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24.15.0'
+          package-manager-cache: false
+
+      - name: Preparar pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: '11.5.1'
+          cache: true
+
+      - name: Instalar dependencias
+        run: pnpm install --frozen-lockfile
+
+      - name: Comprobar tipos
+        run: pnpm typecheck
+
+      - name: Ejecutar pruebas y generar reporte JUnit
+        run: pnpm test
+
+      - name: Compilar frontend
+        run: pnpm build
+
+      - name: Publicar artifact del frontend compilado
+        uses: actions/upload-artifact@v7
+        with:
+          name: web-build-${{ github.sha }}-${{ github.run_attempt }}
+          path: dist/
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Publicar reporte de pruebas
+        if: ${{ always() && !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: web-tests-${{ github.sha }}-${{ github.run_attempt }}
+          path: reports/junit.xml
+          if-no-files-found: warn
+          retention-days: 7

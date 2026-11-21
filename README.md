@@ -5,13 +5,37 @@ Interfaz única de EntradasYa: React 18 + Vite + TypeScript, con vistas por rol.
 ## Arranque
 
 ```bash
-cd apps/web
+# Desde la raíz del repositorio entradasya-web
 pnpm install
 pnpm run dev          # http://localhost:5173
 pnpm run build        # genera dist/ para que Nginx la sirva en la demo
 ```
 
 En desarrollo, Vite reenvía cada API a su servicio con los puertos del plan: auth 3001, events 3002, orders 3003, tickets 3005 y checkin 3007. Para cambiar uno: `EVENTS_URL=http://127.0.0.1:4002 pnpm run dev`. En la demo, Nginx cumple ese papel.
+
+## Pipeline de GitHub Actions
+
+El workflow `.github/workflows/ci.yml` se ejecuta con cada **push a `develop`**. Usa Node.js 24.15.0 y pnpm 11.5.1, instala con `--frozen-lockfile`, comprueba tipos, ejecuta las pruebas y compila con Vite. No requiere bases de datos, servicios encendidos ni secretos de GitHub.
+
+En **Actions → Web CI → ejecución → Artifacts** quedan disponibles durante 7 días:
+
+- `web-build-<commit>-<intento>`: contenido de `dist/` (`index.html` y assets), listo para servir como sitio estático. Se publica cuando pasan todas las validaciones.
+- `web-tests-<commit>-<intento>`: reporte `junit.xml`, también si las pruebas fallan y alcanzan a generar el reporte.
+
+El artifact del frontend necesita un servidor configurado con fallback a `index.html` para las rutas de la SPA y proxy de `/api/*` hacia los servicios. El proxy de Vite solo aplica a `pnpm dev`; no se incorpora en `dist/`. Este pipeline genera artifacts; no despliega el sitio.
+
+Para reproducir las validaciones localmente:
+
+```bash
+pnpm install --frozen-lockfile
+pnpm typecheck
+pnpm test             # también genera reports/junit.xml
+pnpm build
+```
+
+Las pruebas usan Node y TypeScript sin dependencias adicionales. Verifican las llamadas JSON/multipart, Bearer, idempotencia enviada en cabeceras, errores de API y las descargas de tickets, con `fetch` simulado. No son pruebas de navegación en un navegador ni de integración con los otros servicios.
+
+Al subir estos cambios a `develop`, GitHub ejecutará el workflow. Si la rama aún no existe en el remoto, el primer push puede hacerse con `git push -u origin develop` después de crear el commit.
 
 ## Estructura
 
