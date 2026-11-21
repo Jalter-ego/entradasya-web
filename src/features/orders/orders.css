@@ -1,0 +1,54 @@
+/* Estados de la orden (el nombre .status viene de global.css). */
+.order-status--paid { background: var(--ok-soft); color: var(--ok); }
+.order-status--pending { background: var(--amber-soft); color: var(--amber-text); }
+.order-status--rejected,
+.order-status--cancelled { background: var(--danger-soft); color: var(--danger); }
+
+/* ------------------------------------------------------------ checkout */
+.checkout h1 { margin-bottom: 24px; }
+.checkout__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.checkout__summary { position: sticky; top: 24px; }
+
+/* ------------------------------------------------------------ resumen */
+.order-summary { display: grid; gap: 12px; margin: 0; }
+.order-summary > div { display: flex; justify-content: space-between; gap: 16px; }
+.order-summary dt { color: var(--muted); font-size: 0.9rem; }
+.order-summary dd { margin: 0; text-align: right; font-weight: 600; overflow-wrap: anywhere; }
+.order-summary code { font-size: 0.8rem; }
+.order-summary__total { padding-top: 12px; border-top: 1px dashed var(--line); }
+.order-summary__total dd { font-size: 1.25rem; }
+
+/* ------------------------------------------------------------ resultado */
+.order-result .page-head h1 { margin-bottom: 10px; }
+.order-result__box {
+  padding: 18px 20px;
+  margin-bottom: 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--amber-soft);
+}
+.order-result__box--ok { background: var(--ok-soft); }
+.order-result__box--error { background: var(--danger-soft); }
+.order-result__box p { margin: 0 0 12px; }
+.order-result__actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.order-result .form-error { margin-bottom: 16px; }
+
+/* ------------------------------------------------------------ mis compras */
+.my-orders .page-head p { margin: 12px 0 0; }
+.my-orders__pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+@media (max-width: 760px) {
+  .checkout__layout { grid-template-columns: minmax(0, 1fr); }
+  .checkout__summary { position: static; order: -1; }
+}

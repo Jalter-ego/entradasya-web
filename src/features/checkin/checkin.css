@@ -1,0 +1,224 @@
+.checkin-page .page-head p {
+  margin: 10px 0 0;
+  max-width: 60ch;
+}
+
+.checkin-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.9fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.checkin-main,
+.checkin-sidebar {
+  display: grid;
+  gap: 20px;
+}
+
+.checkin-event-meta {
+  margin: 12px 0 0;
+  font-size: 0.92rem;
+}
+
+.checkin-scanner {
+  display: grid;
+  gap: 16px;
+}
+
+.checkin-scanner__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.checkin-scanner__header h2 {
+  margin: 0;
+}
+
+.checkin-input-row {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+
+.checkin-code-input {
+  flex: 1 1 260px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 1rem;
+}
+
+.checkin-camera {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px;
+  background: var(--surface-2);
+  display: grid;
+  gap: 10px;
+}
+
+.checkin-camera__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.checkin-camera__video {
+  width: 100%;
+  max-height: 280px;
+  border-radius: var(--radius-sm);
+  background: #000;
+  object-fit: cover;
+}
+
+.checkin-result {
+  border-radius: var(--radius-lg);
+  padding: clamp(20px, 3vw, 28px);
+  border: 2px solid var(--line);
+  background: var(--surface);
+  display: grid;
+  gap: 10px;
+}
+
+.checkin-result--authorized {
+  border-color: var(--ok);
+  background: linear-gradient(180deg, var(--ok-soft), var(--surface));
+}
+
+.checkin-result--already_used,
+.checkin-result--invalid,
+.checkin-result--error {
+  border-color: var(--danger);
+  background: linear-gradient(180deg, var(--danger-soft), var(--surface));
+}
+
+.checkin-result--wrong_event {
+  border-color: var(--amber);
+  background: linear-gradient(180deg, var(--amber-soft), var(--surface));
+}
+
+.checkin-result__badge {
+  display: inline-block;
+  width: fit-content;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.1);
+}
+
+.checkin-result--authorized .checkin-result__badge {
+  background: var(--ok-soft);
+  color: var(--ok);
+}
+
+.checkin-result--already_used .checkin-result__badge,
+.checkin-result--invalid .checkin-result__badge,
+.checkin-result--error .checkin-result__badge {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.checkin-result--wrong_event .checkin-result__badge {
+  background: var(--amber-soft);
+  color: var(--amber-text);
+}
+
+.checkin-result h2 {
+  margin: 0;
+  font-size: 1.55rem;
+}
+
+.checkin-result__message {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.checkin-result__highlight {
+  margin: 4px 0 0;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: rgb(0 0 0 / 0.25);
+  color: var(--text);
+}
+
+.checkin-result__meta {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.checkin-counter__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkin-counter__value {
+  margin: 8px 0 6px;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--ok);
+  font-variant-numeric: tabular-nums;
+}
+
+.checkin-counter__hint {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.checkin-history h3 {
+  margin-bottom: 12px;
+}
+
+.checkin-history__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.checkin-history__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  border-left: 3px solid var(--line);
+}
+
+.checkin-history__item--ok {
+  border-left-color: var(--ok);
+}
+
+.checkin-history__item--rejected {
+  border-left-color: var(--danger);
+}
+
+.checkin-history__item div {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.checkin-history__item strong {
+  font-size: 0.9rem;
+}
+
+@media (max-width: 900px) {
+  .checkin-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

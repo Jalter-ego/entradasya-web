@@ -1,0 +1,129 @@
+/* Pantalla de acceso: página propia, sin encabezado, centrada. */
+
+.auth {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 56px 16px 40px;
+  overflow: hidden;
+}
+.auth__glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(600px 400px at 50% -10%, rgb(229 38 106 / 0.28), transparent 70%),
+    radial-gradient(500px 360px at 100% 100%, rgb(255 182 39 / 0.08), transparent 70%);
+  pointer-events: none;
+}
+.auth__brand {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+  color: var(--text);
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 2rem;
+  letter-spacing: -0.03em;
+}
+.auth__brand svg {
+  width: 40px;
+  height: 40px;
+  fill: var(--accent);
+  transform: rotate(-12deg);
+}
+
+.auth__card {
+  position: relative;
+  width: min(420px, 100%);
+  display: grid;
+  gap: 22px;
+  padding: 28px;
+  background: rgb(22 19 31 / 0.92);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.9);
+  backdrop-filter: blur(10px);
+}
+
+.auth__tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  padding: 4px;
+  border-radius: var(--radius);
+  background: var(--bg);
+}
+.auth__tabs button {
+  min-height: 40px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--muted);
+  font: 600 0.95rem var(--font-body);
+  cursor: pointer;
+}
+.auth__tabs button[aria-pressed='true'] {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.auth__form {
+  display: grid;
+  gap: 16px;
+}
+
+.auth__notice {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  font-size: 0.9rem;
+}
+
+.input-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.input-icon > .icon {
+  position: absolute;
+  left: 12px;
+  color: var(--muted);
+  pointer-events: none;
+}
+.input-icon .input {
+  padding-left: 40px;
+  padding-right: 44px;
+}
+.input-icon__toggle {
+  position: absolute;
+  right: 6px;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+.input-icon__toggle:hover {
+  color: var(--text);
+}
+
+.auth__back {
+  position: relative;
+  margin-top: 22px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+.auth__back:hover {
+  color: var(--text);
+}

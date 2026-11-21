@@ -1,0 +1,68 @@
+.my-tickets .page-head p {
+  margin: 12px 0 0;
+  max-width: 55ch;
+}
+
+.my-tickets__filter {
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow-wrap: anywhere;
+}
+.my-tickets__filter p { margin-bottom: 6px; }
+
+.my-tickets__toolbar,
+.my-tickets__pagination,
+.owned-ticket__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.my-tickets__toolbar { margin-bottom: 18px; }
+.my-tickets__toolbar p { margin: 0; }
+.my-tickets__pagination { justify-content: center; margin-top: 28px; }
+
+.my-tickets__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.owned-ticket {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(20px, 3vw, 28px);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--accent);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.owned-ticket__heading { margin-bottom: 20px; }
+.owned-ticket__number { font-weight: 700; font-size: 0.9rem; color: var(--accent-text); }
+.owned-ticket__issued { padding: 3px 10px; border-radius: 999px; background: var(--ok-soft); color: var(--ok); font-size: 0.8rem; }
+.owned-ticket h2 { font-size: 1.5rem; }
+.owned-ticket__date { color: var(--muted); font-size: 0.9rem; }
+.owned-ticket dl { margin: 0; }
+.owned-ticket dt { font-size: 0.8rem; color: var(--muted); }
+.owned-ticket dd { margin: 3px 0 0; }
+.owned-ticket__facts { display: grid; gap: 14px; padding: 24px 0; }
+.owned-ticket__facts dd { font-weight: 600; }
+.owned-ticket__details { border-top: 1px dashed var(--line); padding: 16px 0; }
+.owned-ticket__details summary { cursor: pointer; font-size: 0.9rem; color: var(--muted); }
+.owned-ticket__details dl { display: grid; gap: 12px; padding-top: 16px; }
+.owned-ticket__details code { word-break: break-all; }
+.owned-ticket__download { display: grid; gap: 12px; margin-top: auto; padding-top: 8px; }
+.owned-ticket__download .form-error { font-size: 0.9rem; }
+.my-tickets__note { margin: 28px 0 0; font-size: 0.875rem; text-align: center; }
+.my-tickets__login { text-align: center; }
+
+@media (max-width: 760px) {
+  .my-tickets__grid { grid-template-columns: minmax(0, 1fr); }
+}

@@ -1,0 +1,479 @@
+/* Panel del organizador: misma estructura que el Control Center de attendance,
+   con los tokens del tema oscuro de EntradasYa (styles/global.css). */
+
+.org-shell {
+  --panel-paper: var(--surface);
+  --panel-canvas: var(--bg);
+  --panel-line: var(--line);
+  --panel-body: var(--muted);
+  --panel-artwork: rgb(229 38 106 / 0.05);
+  --sidebar-background: color-mix(in srgb, var(--accent), #0c0a14 84%);
+  --sidebar-text: var(--on-ink);
+  --sidebar-muted: color-mix(in srgb, var(--sidebar-background), var(--sidebar-text) 70%);
+  --sidebar-accent: var(--accent-text);
+  --sidebar-line: rgb(255 255 255 / 0.1);
+  --sidebar-hover: rgb(255 255 255 / 0.06);
+  --sidebar-active: rgb(255 255 255 / 0.1);
+  --panel-sidebar-width: 244px;
+  display: grid;
+  grid-template-columns: var(--panel-sidebar-width) minmax(0, 1fr);
+  min-height: 100vh;
+  min-height: 100svh;
+  color: var(--text);
+  background: var(--panel-canvas);
+}
+
+.org-shell a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.org-skip {
+  position: fixed;
+  z-index: 10;
+  top: 12px;
+  left: 12px;
+  padding: 12px 18px;
+  border-radius: var(--radius-sm);
+  color: var(--on-ink);
+  background: var(--accent);
+  transform: translateY(-160%);
+}
+.org-skip:focus {
+  transform: translateY(0);
+}
+
+/* ----------------------------------------------------------- barra lateral */
+
+.org-sidebar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  height: 100vh;
+  height: 100svh;
+  flex-direction: column;
+  padding: 31px 20px 24px;
+  border-right: 1px solid var(--sidebar-line);
+  color: var(--sidebar-text);
+  background: var(--sidebar-background);
+  overflow-y: auto;
+}
+.org-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-inline: 7px;
+}
+.org-brand > svg {
+  flex-shrink: 0;
+  color: var(--sidebar-accent);
+  transform: rotate(-12deg);
+}
+.org-brand > span {
+  font-family: var(--font-display);
+  font-size: 23px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.8px;
+}
+.org-brand > span > span {
+  color: var(--sidebar-accent);
+}
+.org-brand small {
+  display: block;
+  margin-top: 7px;
+  color: var(--sidebar-muted);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.35px;
+}
+
+.org-navigation {
+  margin-top: 54px;
+}
+.org-nav-caption {
+  margin: 0 13px 16px;
+  color: var(--sidebar-muted);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+}
+.org-navigation nav {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.org-navigation nav a {
+  position: relative;
+  display: flex;
+  min-height: 45px;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 13px;
+  border-radius: var(--radius-sm);
+  color: var(--sidebar-muted);
+  font-size: 14px;
+  transition: color 150ms ease, background 150ms ease;
+}
+.org-navigation nav a > svg {
+  flex-shrink: 0;
+}
+.org-navigation nav a > svg:last-child {
+  margin-left: auto;
+  opacity: 0;
+}
+.org-navigation nav a:hover {
+  color: var(--sidebar-text);
+  background: var(--sidebar-hover);
+}
+.org-navigation nav a.active {
+  color: var(--sidebar-text);
+  background: var(--sidebar-active);
+  font-weight: 600;
+}
+.org-navigation nav a.active::before {
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  left: -20px;
+  width: 3px;
+  border-radius: 0 2px 2px 0;
+  background: var(--sidebar-accent);
+  content: '';
+}
+.org-navigation nav a.active > svg:last-child {
+  opacity: 1;
+}
+
+.org-sidebar-bottom {
+  margin-top: auto;
+  padding: 60px 12px 0;
+}
+.org-sidebar-note {
+  padding-top: 22px;
+  border-top: 1px solid var(--sidebar-line);
+  color: var(--sidebar-accent);
+}
+.org-sidebar-note p {
+  margin: 12px 0 20px;
+  color: var(--sidebar-muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+.org-local-mode {
+  display: block;
+  margin-bottom: 16px;
+  color: var(--sidebar-muted);
+  font-size: 10px;
+  line-height: 1.6;
+}
+.org-home-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 36px;
+  color: var(--sidebar-text);
+  font-size: 12px;
+}
+.org-home-link:hover {
+  text-decoration: underline !important;
+  text-underline-offset: 4px;
+}
+
+/* ----------------------------------------------------------- área de trabajo */
+
+.org-workspace {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  min-width: 0;
+  min-height: 100svh;
+  flex-direction: column;
+}
+.org-workspace-decoration {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  color: var(--panel-artwork);
+  overflow: hidden;
+  pointer-events: none;
+}
+.org-workspace-mark {
+  position: absolute;
+  top: -215px;
+  right: -200px;
+  transform: rotate(-12deg);
+}
+.org-workspace-orbit {
+  position: absolute;
+  bottom: -320px;
+  right: -200px;
+  width: 640px;
+  height: 640px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  box-shadow: 0 0 0 65px var(--panel-artwork);
+}
+
+.org-topbar {
+  display: flex;
+  min-height: 86px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 16px 40px;
+  border-bottom: 1px solid var(--panel-line);
+  background: var(--panel-paper);
+}
+.org-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--panel-body);
+  font-size: 13px;
+}
+.org-breadcrumb > svg {
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+.org-breadcrumb > span {
+  color: var(--text);
+}
+.org-breadcrumb a:hover {
+  color: var(--accent-text);
+}
+
+.org-profile {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 11px;
+}
+.org-user-avatar {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  place-items: center;
+  border: 1px solid rgb(229 38 106 / 0.45);
+  border-radius: 50%;
+  color: var(--accent-text);
+  background: var(--accent-soft);
+  font-size: 13px;
+  font-weight: 700;
+}
+.org-user-details {
+  min-width: 0;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.org-user-details small {
+  display: block;
+  margin-top: 3px;
+  color: var(--panel-body);
+  font-size: 11px;
+}
+.org-logout {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  place-items: center;
+  margin-left: 12px;
+  padding: 0;
+  border: 1px solid var(--panel-line);
+  border-radius: var(--radius-sm);
+  color: var(--panel-body);
+  background: transparent;
+  cursor: pointer;
+}
+.org-logout:hover {
+  color: var(--accent-text);
+  background: var(--accent-soft);
+}
+
+.org-main {
+  width: 100%;
+  max-width: 1520px;
+  flex: 1;
+  margin-inline: auto;
+  padding: 44px 40px 64px;
+}
+.org-main:focus {
+  outline: none;
+}
+/* Las páginas de events traen su propio relleno pensado para el sitio público. */
+.org-main > .page {
+  padding: 0;
+}
+.org-main > .page.notice {
+  padding-top: 32px;
+}
+
+.org-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 40px;
+  border-top: 1px solid var(--panel-line);
+  color: var(--panel-body);
+  font-size: 11px;
+}
+.org-footer-dot {
+  color: var(--accent-text);
+  font-weight: 700;
+}
+
+.org-shell :is(a, button):focus-visible {
+  outline: none;
+  box-shadow: var(--focus);
+}
+
+/* ----------------------------------------------------------- pantallas medianas y chicas */
+
+@media (max-width: 1200px) {
+  .org-shell {
+    --panel-sidebar-width: 224px;
+  }
+  .org-sidebar {
+    padding-inline: 16px;
+  }
+  .org-brand {
+    gap: 9px;
+    margin-inline: 6px;
+  }
+  .org-brand > span {
+    font-size: 21px;
+  }
+  .org-navigation nav a.active::before {
+    left: -16px;
+  }
+  .org-topbar {
+    padding-inline: 28px;
+  }
+  .org-main {
+    padding: 36px 28px 54px;
+  }
+  .org-footer {
+    padding-inline: 28px;
+  }
+}
+
+@media (max-width: 820px) {
+  .org-shell {
+    display: block;
+  }
+  .org-sidebar {
+    position: static;
+    height: auto;
+    padding: 22px 24px 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--sidebar-line);
+    overflow: visible;
+  }
+  .org-brand {
+    align-self: flex-start;
+    margin-inline: 0;
+  }
+  .org-navigation {
+    min-width: 0;
+    margin-top: 23px;
+  }
+  .org-nav-caption,
+  .org-sidebar-bottom {
+    display: none;
+  }
+  .org-navigation nav {
+    flex-direction: row;
+    gap: 22px;
+    overflow-x: auto;
+  }
+  .org-navigation nav a {
+    min-height: 48px;
+    flex-shrink: 0;
+    gap: 8px;
+    padding: 12px 0;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    font-size: 13px;
+  }
+  .org-navigation nav a.active {
+    border-color: var(--sidebar-accent);
+    background: transparent;
+  }
+  .org-navigation nav a.active::before,
+  .org-navigation nav a > svg:last-child {
+    display: none;
+  }
+  .org-topbar {
+    min-height: 76px;
+    gap: 16px;
+    padding: 14px 24px;
+  }
+  .org-breadcrumb {
+    gap: 8px;
+    font-size: 12px;
+  }
+  .org-user-details {
+    max-width: 180px;
+  }
+  .org-user-details small {
+    display: none;
+  }
+  .org-logout {
+    margin-left: 3px;
+  }
+  .org-main {
+    padding: 32px 24px 48px;
+  }
+  .org-footer {
+    padding-inline: 24px;
+  }
+  .org-workspace-mark {
+    top: -165px;
+    right: -210px;
+  }
+}
+
+@media (max-width: 560px) {
+  .org-sidebar {
+    padding: 21px 16px 0;
+  }
+  .org-topbar {
+    min-height: 70px;
+    padding: 13px 16px;
+  }
+  .org-breadcrumb {
+    display: none;
+  }
+  .org-profile {
+    gap: 8px;
+    margin-left: auto;
+  }
+  .org-user-details {
+    max-width: 160px;
+  }
+  .org-user-avatar {
+    width: 32px;
+    height: 32px;
+  }
+  .org-logout {
+    width: 36px;
+    height: 36px;
+  }
+  .org-main {
+    padding: 28px 16px 40px;
+  }
+  .org-footer {
+    padding-inline: 16px;
+  }
+  .org-footer > span:last-child {
+    display: none;
+  }
+  .org-workspace-mark {
+    right: -285px;
+  }
+}

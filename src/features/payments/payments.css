@@ -1,0 +1,73 @@
+/* PaymentFields (P4): tarjeta de demo y opciones 1111 / 0000. Usa los tokens de global.css. */
+
+.payment-card {
+  position: relative;
+  display: grid;
+  gap: 14px;
+  padding: 18px 20px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(120% 140% at 100% 0%, var(--accent-soft), transparent 60%),
+    linear-gradient(135deg, var(--surface-2), var(--surface));
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: border-color 160ms ease;
+}
+.payment-card--ok { border-color: color-mix(in srgb, var(--ok) 45%, var(--line)); }
+.payment-card--danger { border-color: color-mix(in srgb, var(--danger) 45%, var(--line)); }
+
+.payment-card__brand {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.payment-card__number {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  font-size: 1.15rem;
+  letter-spacing: 0.12em;
+  color: var(--text);
+}
+.payment-card__number strong { color: var(--accent-text); }
+.payment-card__result { font-size: 0.85rem; font-weight: 600; }
+.payment-card--ok .payment-card__result { color: var(--ok); }
+.payment-card--danger .payment-card__result { color: var(--danger); }
+
+.payment-fields__options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+}
+
+.payment-option {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  cursor: pointer;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+.payment-option:hover { border-color: var(--muted); }
+.payment-option.is-selected { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.payment-option:has(input:focus-visible) { box-shadow: var(--focus); }
+.payment-option input { margin-top: 4px; accent-color: var(--accent); }
+.payment-option__text { display: grid; gap: 2px; min-width: 0; }
+.payment-option__text strong { font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace; letter-spacing: 0.06em; }
+.payment-option__result { font-size: 0.85rem; }
+.payment-option__result--ok { color: var(--ok); }
+.payment-option__result--danger { color: var(--danger); }
+
+.payment-fields:disabled .payment-option { cursor: not-allowed; opacity: 0.6; }
+
+@media (prefers-reduced-motion: reduce) {
+  .payment-card,
+  .payment-option { transition: none; }
+}
